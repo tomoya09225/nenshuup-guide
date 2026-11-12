@@ -105,6 +105,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:18p
 .hero-card .num small{font-size:20px;margin-left:2px}
 .hero-card .up{display:inline-block;margin-top:8px;border:1px solid var(--gold);color:var(--gold2);font-weight:900;font-size:15px;padding:6px 16px;border-radius:99px;background:rgba(201,164,92,.1)}
 .bars{margin:20px 0 4px;text-align:left;position:relative}
+.upside{display:grid;grid-template-columns:1fr 1fr;margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.upside div{padding:10px 6px;font-size:11px;color:var(--sub);line-height:1.5}
+.upside div+div{border-left:1px solid var(--line)}
+.upside span{display:block}
+.upside b{display:block;font-family:var(--serif);font-size:17px;font-weight:800;margin-top:2px}
 .bar{margin:11px 0}
 .bar .t{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:6px}
 .bar .t b{color:var(--ink)}
@@ -326,6 +331,10 @@ function showResult(r){
     <div class="lbl">転職で狙える年収（目安）</div>
     <div class="num gold-text">最大 <span id="cnt">0</span><small>万円</small></div>
     <div class="up">今より +${up}万円</div>
+    <div class="upside">
+      <div><span>大手4社の平均年収まで</span><b class="gold-text">+${Math.round(Math.min(...cos.map(c => c.s)) - r.mid)}万円〜</b></div>
+      <div><span>支援実績では</span><b class="gold-text">年収500万円UP事例</b></div>
+    </div>
     <div class="reveal"><small>あなたが狙える大手企業</small>${cos.map(c => `<span class="chip">${c.n}</span>`).join('')}</div>
     <div class="bars">
       <div class="bar"><div class="t"><span>今の年収（回答）</span><b>${A.pay[0]}</b></div><div class="track"><div class="fill" style="background:#6b7385" data-w="${r.mid / scale * 100}"></div></div></div>
