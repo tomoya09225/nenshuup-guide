@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>年収UP研究所｜市場価値・年収診断（無料・8問）</title>
+<meta name="description" content="8つの質問に答えるだけ。あなたの年収の相場と、転職で狙える年収、年収1000万円を超える有名企業へのルートが分かる無料診断。">
+<meta property="og:title" content="あなたの市場価値、いくら？｜年収UP研究所の無料診断">
+<meta property="og:description" content="8問・約1分。狙える年収と、年収1000万円超の有名企業へのルートが分かります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16181d; --sub:#5b6170; --line:#e4e1d9; --bg:#f6f4ef; --card:#ffffff;
+  --gold:#b8892f; --gold-soft:#f6ecd6; --navy:#16213a; --green:#06c755; --red:#c2410c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:520px;margin:0 auto;padding:0 18px 120px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.brand{font-weight:900;font-size:16px;letter-spacing:.02em}
+.brand b{color:var(--gold)}
+.pill{font-size:12px;font-weight:700;color:var(--gold);background:var(--gold-soft);padding:6px 12px;border-radius:99px}
+.hidden{display:none!important}
+
+/* スタート */
+.hero{padding:22px 0 8px;text-align:center}
+.kicker{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.12em}
+.hero h1{font-size:34px;line-height:1.3;font-weight:900;margin:12px 0 14px}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,#f3d48a 62%)}
+.hero p{font-size:15px;line-height:1.8;color:var(--sub)}
+.preview{margin:22px 0 4px;background:var(--navy);color:#fff;border-radius:20px;padding:18px 18px 16px;text-align:left;position:relative;overflow:hidden}
+.preview small{font-size:12px;color:#c9cfdb}
+.preview .big{font-size:30px;font-weight:900;color:#f3d48a;margin:2px 0 10px}
+.preview .row{display:flex;gap:8px;flex-wrap:wrap}
+.preview .chip{font-size:12px;background:rgba(255,255,255,.1);padding:5px 10px;border-radius:99px}
+.preview .blur{filter:blur(5px);user-select:none}
+.checks{display:grid;gap:8px;margin:18px 0 0;text-align:left}
+.checks div{font-size:14px;font-weight:500;display:flex;gap:8px;align-items:flex-start}
+.checks div:before{content:"✓";color:var(--gold);font-weight:900}
+.cta{display:block;width:100%;background:var(--ink);color:#fff;font-weight:900;font-size:18px;padding:19px;border-radius:99px;margin:24px 0 10px;box-shadow:0 8px 22px rgba(22,24,29,.22)}
+.cta:active{transform:translateY(1px)}
+.note{font-size:11.5px;line-height:1.7;color:#8a8f9b;text-align:center}
+
+/* 質問 */
+.progress{height:6px;background:#e7e3da;border-radius:99px;overflow:hidden;margin:6px 0 4px}
+.progress i{display:block;height:100%;width:0;background:var(--gold);transition:width .35s}
+.step{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:18px}
+.back{font-size:13px;color:var(--sub);padding:4px 0}
+.q h2{font-size:23px;line-height:1.45;font-weight:900;margin-bottom:6px}
+.q .hint{font-size:13px;color:var(--sub);margin-bottom:16px}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px 14px;font-size:15.5px;font-weight:700;text-align:left;line-height:1.4;transition:border-color .15s,background .15s}
+.opt span{display:block;font-size:12px;font-weight:400;color:var(--sub);margin-top:3px}
+.opt.on{border-color:var(--gold);background:var(--gold-soft)}
+.fade{animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* 計算中 */
+.loading{text-align:center;padding:90px 0}
+.spin{width:46px;height:46px;border:4px solid #e7e3da;border-top-color:var(--gold);border-radius:50%;margin:0 auto 18px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 結果 */
+.res-head{text-align:center;padding:10px 0 4px}
+.res-head .kicker{display:block;margin-bottom:6px}
+.res-head h2{font-size:20px;font-weight:900}
+.hero-card{background:var(--navy);color:#fff;border-radius:22px;padding:22px 20px;margin:16px 0;text-align:center}
+.hero-card .lbl{font-size:13px;color:#c9cfdb}
+.hero-card .num{font-size:52px;font-weight:900;color:#f3d48a;line-height:1.15;letter-spacing:-.01em}
+.hero-card .num small{font-size:20px;margin-left:2px}
+.hero-card .up{display:inline-block;margin-top:8px;background:#f3d48a;color:var(--navy);font-weight:900;font-size:15px;padding:6px 14px;border-radius:99px}
+.bars{margin:18px 0 4px;text-align:left}
+.bar{margin:10px 0}
+.bar .t{display:flex;justify-content:space-between;font-size:12.5px;color:#c9cfdb;margin-bottom:5px}
+.bar .t b{color:#fff}
+.bar .track{height:12px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
+.bar .fill{height:100%;width:0;border-radius:99px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.sec{background:var(--card);border-radius:18px;padding:20px 18px;margin:14px 0;border:1px solid var(--line)}
+.sec h3{font-size:18px;font-weight:900;margin-bottom:4px}
+.sec .lead{font-size:13.5px;color:var(--sub);line-height:1.7;margin-bottom:14px}
+.goal{display:flex;align-items:center;gap:10px;background:var(--gold-soft);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:700;margin-bottom:14px}
+.goal b{color:var(--red);font-size:18px}
+.co{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+.co:first-of-type{border-top:0}
+.co .rank{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#f3d48a;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.co .nm{flex:1;min-width:0}
+.co .nm b{display:block;font-size:16px}
+.co .nm span{font-size:12px;color:var(--sub)}
+.co .sal{text-align:right;font-weight:900;font-size:19px;white-space:nowrap}
+.co .sal small{display:block;font-size:11px;font-weight:400;color:var(--sub)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:13px;font-weight:700;background:var(--bg);border:1px solid var(--line);padding:7px 11px;border-radius:99px}
+.list{display:grid;gap:10px}
+.list div{font-size:14px;line-height:1.7;padding-left:22px;position:relative}
+.list div:before{content:"";position:absolute;left:4px;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.line-box{background:#fff;border:2px solid var(--green);border-radius:18px;padding:20px 18px;margin:18px 0}
+.line-box h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.line-box p{font-size:13.5px;line-height:1.75;color:var(--sub)}
+.steps{display:grid;gap:10px;margin:14px 0 4px}
+.btn-line{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--green);color:#fff;font-weight:900;font-size:16px;padding:16px;border-radius:99px;text-decoration:none}
+.btn-line.ghost{background:#fff;color:#04903f;border:2px solid var(--green)}
+.btn-line .n{background:rgba(255,255,255,.25);width:22px;height:22px;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center}
+.btn-line.ghost .n{background:#e7f8ee}
+.small{font-size:11.5px;line-height:1.75;color:#8a8f9b;margin-top:10px}
+.sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 18px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:5}
+.sticky a{max-width:520px;margin:0 auto}
+.retry{display:block;margin:6px auto 0;font-size:13px;color:var(--sub);text-decoration:underline}
+footer{font-size:11px;line-height:1.8;color:#8a8f9b;margin-top:22px}
+footer a{color:#8a8f9b}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="brand">年収<b>UP</b>研究所</div><div class="pill">無料・8問・約1分</div></header>
+
+  <!-- スタート -->
+  <section id="start">
+    <div class="hero">
+      <div class="kicker">MARKET VALUE CHECK</div>
+      <h1>あなたの年収、<br><em>本当はいくら？</em></h1>
+      <p>8つの質問にタップで答えるだけ。<br>今の相場・転職で狙える年収・<br>年収1000万円を超える有名企業へのルートが分かります。</p>
+    </div>
+    <div class="preview" aria-hidden="true">
+      <small>診断結果のイメージ</small>
+      <div class="big">狙える年収 <span class="blur">最大 780</span>万円</div>
+      <div class="row"><span class="chip">キーエンス</span><span class="chip">三菱商事</span><span class="chip">三井不動産</span><span class="chip">ソニーグループ</span></div>
+    </div>
+    <div class="checks">
+      <div>登録・個人情報の入力なし。その場で結果が出ます</div>
+      <div>キーエンス・総合商社・デベロッパーなど、平均年収1000万円超の有名企業から「狙える会社」を表示</div>
+      <div>結果は公式LINEに保存して、無料で個別アドバイスも受け取れます</div>
+    </div>
+    <button class="cta" id="go">無料で診断をはじめる</button>
+    <p class="note">※結果は公開データと一般的な転職市場の傾向にもとづく目安です。転職後の年収や内定を保証するものではありません。</p>
+  </section>
+
+  <!-- 質問 -->
+  <section id="quiz" class="hidden">
+    <div class="progress"><i id="bar"></i></div>
+    <div class="step"><button class="back" id="back">← 戻る</button><span id="count"></span></div>
+    <div id="q" class="q"></div>
+  </section>
+
+  <!-- 計算中 -->
+  <section id="loading" class="hidden loading">
+    <div class="spin"></div>
+    <p style="font-weight:700">あなたの市場価値を計算しています…</p>
+    <p class="note" style="margin-top:8px">有名企業の公開データと照らし合わせています</p>
+  </section>
+
+  <!-- 結果 -->
+  <section id="result" class="hidden"></section>
+
+  <footer>
+    出典：各社 有価証券報告書「従業員の状況」（提出会社の平均年間給与・平均年齢。EDINETで取得、2025年8月〜2026年3月期）。平均年収は全社員の平均で、職種・年齢・等級により異なります。掲載企業は当研究所が年収の高い有名企業から選んだもので、各社との提携や求人の紹介・内定を約束するものではありません。
+    <br>© 年収UP研究所（<a href="https://www.instagram.com/nenshu_up__lab/">@nenshu_up__lab</a>）
+  </footer>
+</div>
+
+<div class="sticky hidden" id="sticky"><a class="btn-line" id="stickyLine" href="#line">公式LINEで結果を受け取る（無料）</a></div>
+
+<script>
+// ===== 設定 =====
+const LINE_ADD = 'https://lin.ee/t88u9D3';      // 友だち追加
+const LINE_ID = '@616nxycf';                     // 公式LINEのID（lin.ee/t88u9D3 の転送先）
+const SUPPORT_UP = '平均年収200万円UP（支援実績の平均）';
+
+// 平均年収1000万円超の有名企業（各社 有価証券報告書「従業員の状況」提出会社。content/edinet/salary.csv、2026-11-12 取得）
+const CO = {
+  keyence:{n:'キーエンス',i:'電気機器',s:2178.3,a:35.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YAHE'},
+  mc:{n:'三菱商事',i:'総合商社',s:2112.5,a:42.3,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YB25'},
+  mitsui:{n:'三井物産',i:'総合商社',s:2058.9,a:42.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YAVT'},
+  itochu:{n:'伊藤忠商事',i:'総合商社',s:1991.2,a:42.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YA6H'},
+  disco:{n:'ディスコ',i:'半導体製造装置',s:1879.6,a:37.2,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YC6I'},
+  mfud:{n:'三井不動産',i:'デベロッパー',s:1855.5,a:42.1,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YHUO'},
+  sumitomo:{n:'住友商事',i:'総合商社',s:1840.3,a:43.3,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YARD'},
+  marubeni:{n:'丸紅',i:'総合商社',s:1784.4,a:42.5,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YAY4'},
+  mec:{n:'三菱地所',i:'デベロッパー',s:1759.3,a:42.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YBLA'},
+  mol:{n:'商船三井',i:'海運',s:1659.9,a:38.4,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YI2T'},
+  nyk:{n:'日本郵船',i:'海運',s:1554.5,a:37.8,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YBT6'},
+  tel:{n:'東京エレクトロン',i:'半導体製造装置',s:1380.4,a:43.1,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YEOO'},
+  chugai:{n:'中外製薬',i:'製薬',s:1350.8,a:42.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100XTBJ'},
+  nri:{n:'野村総合研究所',i:'コンサル・IT',s:1332.6,a:39.7,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YBM8'},
+  baycurrent:{n:'ベイカレント',i:'コンサル',s:1331.1,a:31.3,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Y69G'},
+  fr:{n:'ファーストリテイリング',i:'小売（ユニクロ）',s:1250.6,a:38.0,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100X6X6'},
+  sony:{n:'ソニーグループ',i:'電機・エンタメ',s:1155.1,a:42.7,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YE2C'},
+  toyota:{n:'トヨタ自動車',i:'自動車',s:1006.0,a:40.5,u:'https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Y8NY'}
+};
+
+// 職種ごとの「狙える会社」（有名さ・年収の高さを優先。業界の回答で1社入れ替える）
+const BY_JOB = {
+  sales:['keyence','mc','itochu','mfud'],
+  plan:['mitsui','sony','mec','fr'],
+  eng:['tel','sony','nri','keyence'],
+  consult:['baycurrent','nri','mc','mitsui'],
+  admin:['mc','mfud','nyk','chugai'],
+  expert:['disco','tel','chugai','toyota'],
+  shop:['fr','keyence','mec','itochu']
+};
+const BY_IND = {it:'nri',maker:'sony',trade:'mitsui',fin:'mc',estate:'mfud',consult:'baycurrent',service:'fr',other:'nyk'};
+
+// 職種ごとに、年収の高い会社で評価されやすい経験（一般的な傾向）
+const ROUTE = {
+  sales:['法人営業で「数字の実績」を言えるようにする（達成率・売上・新規数）','単価の高い商材や大手顧客を担当した経験を積む','課題を聞き出して提案した事例を1つ話せるようにする'],
+  plan:['企画した施策の「結果の数字」を整理する','事業や商品の数字（売上・利益）に責任を持つ経験を積む','社内外を巻き込んで進めた経験を話せるようにする'],
+  eng:['担当した技術と規模（人数・期間・利用者数）を整理する','設計や上流工程、リード経験に寄せていく','英語の資料を読む・書く機会を増やす'],
+  consult:['関わった案件の「課題→打ち手→成果」を3行で話せるようにする','業界知識かIT・データの強みを1つ決める','チームや顧客をリードした経験を積む'],
+  admin:['担当業務の改善で「何時間・何円減らしたか」を数字にする','経理・法務・人事など専門性を1つ深める','英語やデータ分析など、もう1つの武器を足す'],
+  expert:['専門分野と成果（特許・論文・改善の数字）を整理する','顧客や他部署と一緒に進めた経験を増やす','英語で技術の話ができるようにする'],
+  shop:['店舗やエリアの売上を伸ばした数字を整理する','後輩の育成やシフト・在庫の管理経験を積む','法人向けや本社職に近い仕事に寄せていく']
+};
+
+const Q = [
+  {k:'age',t:'あなたの年齢は？',o:[['22〜24歳',23],['25〜27歳',26],['28〜30歳',29],['31〜34歳',32],['35歳以上',36]]},
+  {k:'pay',t:'今の年収（税込・賞与込み）は？',h:'だいたいで大丈夫です',o:[['〜349万円',320],['350〜449万円',400],['450〜549万円',500],['550〜699万円',620],['700〜899万円',790],['900万円以上',950]],two:1},
+  {k:'ind',t:'今の業界は？',o:[['IT・通信','it'],['メーカー','maker'],['商社・流通','trade'],['金融・保険','fin'],['不動産・建設','estate'],['コンサル','consult'],['人材・広告・サービス','service'],['医療・公務・その他','other']],two:1},
+  {k:'job',t:'今の職種は？',o:[['営業','sales'],['企画・マーケティング','plan'],['エンジニア・IT','eng'],['コンサル・提案','consult'],['事務・管理部門','admin'],['技術・研究・専門職','expert'],['販売・接客','shop']],two:1},
+  {k:'exp',t:'社会人経験は？',o:[['1〜2年',0],['3〜5年',.03],['6〜8年',.05],['9年以上',.06]]},
+  {k:'win',t:'仕事の成果で、いちばん近いのは？',o:[['数字で説明できる成果がある','売上・達成率・削減額など',.07],['プロジェクトを改善・推進した','',.05],['専門スキル・資格がある','',.05],['まだ整理できていない','これから一緒に整理できます',0]]},
+  {k:'lead',t:'チームをまとめた経験は？',o:[['チームや案件をリードした','',.07],['後輩指導・サブリーダー','',.04],['まだない','',0]]},
+  {k:'eng',t:'英語は使えますか？',o:[['仕事で使える（会議・メール）','',.06],['読み書きなら少し','',.02],['使っていない','',0]]}
+];
+const JOB_UP = {sales:.03,plan:.03,eng:.05,consult:.05,admin:0,expert:.04,shop:0};
+
+let i = 0; const A = {};
+const $ = s => document.querySelector(s);
+const show = id => ['start','quiz','loading','result'].forEach(s => $('#'+s).classList.toggle('hidden', s !== id));
+
+function render(){
+  const q = Q[i];
+  $('#bar').style.width = (i / Q.length * 100) + '%';
+  $('#count').textContent = `${i + 1} / ${Q.length}`;
+  $('#back').style.visibility = i ? 'visible' : 'hidden';
+  $('#q').innerHTML = `<div class="fade"><h2>${q.t}</h2>${q.h ? `<p class="hint">${q.h}</p>` : '<div style="height:12px"></div>'}
+    <div class="opts ${q.two ? 'two' : ''}">${q.o.map((o, j) => `<button class="opt ${A[q.k] && A[q.k][0] === o[0] ? 'on' : ''}" data-j="${j}">${o[0]}${o.length > 2 && o[1] ? `<span>${o[1]}</span>` : ''}</button>`).join('')}</div></div>`;
+  document.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    const o = q.o[+b.dataset.j]; A[q.k] = o; b.classList.add('on');
+    setTimeout(() => { i++; i < Q.length ? render() : finish(); }, 180);
+  });
+}
+const val = k => { const o = A[k]; return o.length > 2 ? o[2] : o[1]; };
+const r10 = n => Math.round(n / 10) * 10;
+
+function compute(){
+  const mid = val('pay');
+  const p = val('exp') + val('win') + val('lead') + val('eng') + JOB_UP[val('job')];   // 0〜0.31
+  const market = r10(mid * (1 + p * .5));                                               // 今の相場の目安
+  const high = Math.max(r10(mid * (1.15 + p)), market + 60);                              // 転職で狙える上限の目安
+  const job = val('job');
+  const ids = [...BY_JOB[job]];
+  const extra = BY_IND[val('ind')];
+  if (!ids.includes(extra)) ids[3] = extra;
+  return {mid, market, high, p, ids, job};
+}
+
+function finish(){
+  show('loading');
+  setTimeout(() => { show('result'); showResult(compute()); }, 1300);
+}
+
+function lineText(r){
+  const cos = r.ids.map(id => CO[id].n).join('・');
+  return `【診断結果】\n年齢：${A.age[0]}\n今の年収：${A.pay[0]}\n業界・職種：${A.ind[0]}／${A.job[0]}\n相場の目安：${r.market}万円\n狙える年収：最大${r.high}万円\n気になる会社：${cos}\n\n個別のアドバイスがほしいです`;
+}
+
+function showResult(r){
+  const cos = r.ids.map(id => CO[id]);
+  const toGoal = Math.max(0, 1000 - r.high);
+  const up = r.high - r.mid;
+  const scale = Math.max(1000, r.high) * 1.05;
+  const strengths = [];
+  if (val('win') > 0) strengths.push(A.win[0].replace('がある', ''));
+  if (val('lead') > 0) strengths.push(A.lead[0]);
+  if (val('eng') >= .06) strengths.push('英語を仕事で使える');
+  if (val('exp') >= .05) strengths.push(`社会人経験 ${A.exp[0]}`);
+  if (!strengths.length) strengths.push('伸びしろが大きい（成果の伝え方で変わる）');
+  const msg = encodeURIComponent(lineText(r));
+  const oa = `https://line.me/R/oaMessage/${encodeURIComponent(LINE_ID)}/?${msg}`;
+  $('#result').innerHTML = `
+  <div class="res-head fade"><span class="kicker">RESULT</span><h2>あなたの市場価値診断</h2></div>
+  <div class="hero-card fade">
+    <div class="lbl">転職で狙える年収（目安）</div>
+    <div class="num">最大 <span id="cnt">0</span><small>万円</small></div>
+    <div class="up">今より +${up}万円</div>
+    <div class="bars">
+      <div class="bar"><div class="t"><span>今の年収（回答）</span><b>${A.pay[0]}</b></div><div class="track"><div class="fill" style="background:#8b93a7" data-w="${r.mid / scale * 100}"></div></div></div>
+      <div class="bar"><div class="t"><span>あなたの相場（目安）</span><b>${r.market}万円</b></div><div class="track"><div class="fill" style="background:#c9cfdb" data-w="${r.market / scale * 100}"></div></div></div>
+      <div class="bar"><div class="t"><span>転職で狙える上限</span><b>${r.high}万円</b></div><div class="track"><div class="fill" style="background:#f3d48a" data-w="${r.high / scale * 100}"></div></div></div>
+      <div class="bar"><div class="t"><span>有名企業の平均（下の4社）</span><b>${Math.round(Math.min(...cos.map(c => c.s)))}〜${Math.round(Math.max(...cos.map(c => c.s)))}万円</b></div><div class="track"><div class="fill" style="background:#f59e0b" data-w="100"></div></div></div>
+    </div>
+  </div>
+
+  <div class="sec fade">
+    <h3>年収1000万円を狙える会社</h3>
+    <p class="lead">${A.job[0]}の経験から目指しやすい、平均年収1000万円超の有名企業です。</p>
+    <div class="goal">${toGoal ? `年収1000万円まで、狙える上限から <b>あと${toGoal}万円</b>` : `狙える上限が <b>1000万円台</b> に届いています`}</div>
+    ${cos.map((c, n) => `<div class="co"><div class="rank">${n + 1}</div><div class="nm"><b>${c.n}</b><span>${c.i}・平均${c.a}歳</span></div><div class="sal">${c.s.toLocaleString()}<small>万円（平均年収）</small></div></div>`).join('')}
+    <p class="small">平均年収は各社の有価証券報告書（提出会社）の平均年間給与です。全社員の平均で、年齢や職種で変わります。</p>
+  </div>
+
+  <div class="sec fade">
+    <h3>この4社に近づくために</h3>
+    <p class="lead">年収の高い会社で評価されやすい経験（一般的な傾向）です。</p>
+    <div class="list">${ROUTE[r.job].map(t => `<div>${t}</div>`).join('')}</div>
+  </div>
+
+  <div class="sec fade">
+    <h3>あなたの強み</h3>
+    <div class="tags" style="margin-top:10px">${strengths.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+    <p class="small">転職の支援実績では ${SUPPORT_UP}。強みの伝え方しだいで、提示年収は変わります。</p>
+  </div>
+
+  <div class="line-box fade" id="line">
+    <h3>結果を公式LINEに保存して、<br>個別アドバイスを受け取る</h3>
+    <p>LINEに結果を送ると、あなたの経歴なら<b>どの会社を、どの順番で狙うか</b>を無料でお返しします。30分の無料キャリア相談（LINEかオンライン面談）もできます。</p>
+    <div class="steps">
+      <a class="btn-line ghost" href="${LINE_ADD}" target="_blank" rel="noopener"><span class="n">1</span>公式LINEを友だち追加</a>
+      <a class="btn-line" href="${oa}" target="_blank" rel="noopener"><span class="n">2</span>診断結果をLINEで送る</a>
+    </div>
+    <p class="small">②を押すと、結果が入力された状態でLINEが開きます。そのまま送信してください。相談したい方は「キャリア相談希望」と送ってください。</p>
+  </div>
+  <button class="retry" onclick="location.reload()">もう一度診断する</button>
+  <p class="note" style="margin-top:14px">※結果は公開データと一般的な転職市場の傾向にもとづく目安です。転職後の年収や内定を保証するものではありません。</p>`;
+  window.scrollTo(0, 0);
+  requestAnimationFrame(() => setTimeout(() => document.querySelectorAll('.fill').forEach(f => f.style.width = f.dataset.w + '%'), 60));
+  const el = $('#cnt'); let t0 = null;
+  (function tick(t){
+    if (t0 === null) t0 = t;
+    const k = Math.min(1, Math.max(0, (t - t0) / 1100));
+    el.textContent = Math.round(r.high * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(tick);
+  })(performance.now());
+  setTimeout(() => { el.textContent = r.high; }, 1600);  // アニメーションが止まる環境でも最終値を出す
+  $('#sticky').classList.remove('hidden');
+}
+
+$('#go').onclick = () => { show('quiz'); render(); window.scrollTo(0, 0); };
+$('#back').onclick = () => { if (i) { i--; render(); } };
+</script>
+</body>
+</html>
