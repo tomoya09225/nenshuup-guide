@@ -139,6 +139,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:18p
 .line-box p{font-size:13px;line-height:1.8;color:var(--sub)}
 .line-box p b{color:var(--ink)}
 .steps{display:grid;gap:10px;margin:16px 0 4px}
+.free{display:inline-block;font-size:11.5px;font-weight:900;color:#0b1a12;background:#5fe39a;padding:4px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.06em}
+.benefits{display:grid;gap:8px;margin:14px 0 2px}
+.benefits div{background:rgba(6,199,85,.07);border:1px solid rgba(6,199,85,.25);border-radius:12px;padding:11px 12px 11px 36px;font-size:11.5px;color:var(--sub);line-height:1.6;position:relative}
+.benefits div:before{content:"✓";position:absolute;left:13px;top:10px;color:#5fe39a;font-weight:900;font-size:14px}
+.benefits b{display:block;font-size:14px;color:var(--ink)}
 .btn-line{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--green);color:#fff;font-weight:900;font-size:16px;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 8px 22px rgba(6,199,85,.22)}
 .btn-line.ghost{background:transparent;color:#5fe39a;border:1px solid var(--green);box-shadow:none}
 .btn-line .n{background:rgba(255,255,255,.25);width:22px;height:22px;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center}
@@ -206,7 +211,7 @@ footer a{color:var(--mute)}
   </footer>
 </div>
 
-<div class="sticky hidden" id="sticky"><a class="btn-line" id="stickyLine" href="#line">公式LINEで結果を受け取る（無料）</a></div>
+<div class="sticky hidden" id="sticky"><a class="btn-line" id="stickyLine" href="#line">年収UPの無料相談をLINEで受ける</a></div>
 
 <script>
 // ===== 設定 =====
@@ -282,7 +287,10 @@ function render(){
   $('#back').style.visibility = i ? 'visible' : 'hidden';
   $('#q').innerHTML = `<div class="fade"><h2>${q.t}</h2>${q.h ? `<p class="hint">${q.h}</p>` : '<div style="height:12px"></div>'}
     <div class="opts ${q.two ? 'two' : ''}">${q.o.map((o, j) => `<button class="opt ${A[q.k] && A[q.k][0] === o[0] ? 'on' : ''}" data-j="${j}">${o[0]}${o.length > 2 && o[1] ? `<span>${o[1]}</span>` : ''}</button>`).join('')}</div></div>`;
+  let picked = false;  // 素早く2回タップしても1問だけ進める
   document.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    if (picked) return;
+    picked = true;
     const o = q.o[+b.dataset.j]; A[q.k] = o; b.classList.add('on');
     setTimeout(() => { i++; i < Q.length ? render() : finish(); }, 180);
   });
@@ -309,7 +317,7 @@ function finish(){
 
 function lineText(r){
   const cos = r.ids.map(id => CO[id].n).join('・');
-  return `【診断結果】\n年齢：${A.age[0]}\n今の年収：${A.pay[0]}\n業界・職種：${A.ind[0]}／${A.job[0]}\n相場の目安：${r.market}万円\n狙える年収：最大${r.high}万円\n気になる会社：${cos}\n\n個別のアドバイスがほしいです`;
+  return `年収UPキャリア相談\n\n【診断結果】\n年齢：${A.age[0]}\n今の年収：${A.pay[0]}\n業界・職種：${A.ind[0]}／${A.job[0]}\n相場の目安：${r.market}万円\n狙える年収：最大${r.high}万円\n気になる会社：${cos}`;
 }
 
 function showResult(r){
@@ -364,13 +372,19 @@ function showResult(r){
   </div>
 
   <div class="line-box fade" id="line">
-    <h3>結果を公式LINEに保存して、<br>個別アドバイスを受け取る</h3>
-    <p>LINEに結果を送ると、あなたの経歴なら<b>どの会社を、どの順番で狙うか</b>を無料でお返しします。30分の無料キャリア相談（LINEかオンライン面談）もできます。</p>
+    <div class="free">無料・30分</div>
+    <h3>年収UPする転職の<br>具体的な方法、知りたくないですか？</h3>
+    <p>公式LINEで<b>「年収UPキャリア相談」</b>と送るだけ。<br>年収UPのプロが、あなたの診断結果をもとに直接相談にのります。</p>
+    <div class="benefits">
+      <div><b>相談にのるのは転職のプロ</b>人材業界8年目・キャリア相談1,000名以上</div>
+      <div><b>あなたの経歴で狙える会社と、進め方を整理</b>上の4社に近づくために、何から始めるか</div>
+      <div><b>LINEでも、オンライン面談でもOK</b>無料・30分。転職を決めていなくても大丈夫です</div>
+    </div>
     <div class="steps">
       <a class="btn-line ghost" href="${LINE_ADD}" target="_blank" rel="noopener"><span class="n">1</span>公式LINEを友だち追加</a>
-      <a class="btn-line" href="${oa}" target="_blank" rel="noopener"><span class="n">2</span>診断結果をLINEで送る</a>
+      <a class="btn-line" href="${oa}" target="_blank" rel="noopener"><span class="n">2</span>「年収UPキャリア相談」と送る</a>
     </div>
-    <p class="small">②を押すと、結果が入力された状態でLINEが開きます。そのまま送信してください。相談したい方は「キャリア相談希望」と送ってください。</p>
+    <p class="small">②を押すと、「年収UPキャリア相談」と診断結果が入力された状態でLINEが開きます。そのまま送信してください。</p>
   </div>
   <button class="retry" onclick="location.reload()">もう一度診断する</button>
   <p class="note" style="margin-top:14px">※結果は公開データと一般的な転職市場の傾向にもとづく目安です。転職後の年収や内定を保証するものではありません。</p>`;
