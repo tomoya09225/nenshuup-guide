@@ -242,16 +242,21 @@ const CO = {
 };
 
 // 職種ごとの「狙える会社」（有名さ・年収の高さを優先。業界の回答で1社入れ替える）
+// 2026-11-12 オーナー指示：4社のうち1社は必ずコンサル大手（BIG4・アクセンチュアは非上場で公開データがないため、上場しているベイカレント）。
+// 同じ業界の会社は2社並べない。
+const CONSULT = 'baycurrent';
+const GROUP = {keyence:'電機',sony:'電機',tel:'半導体',disco:'半導体',mc:'商社',mitsui:'商社',itochu:'商社',sumitomo:'商社',marubeni:'商社',
+  mfud:'不動産',mec:'不動産',mol:'海運',nyk:'海運',chugai:'製薬',nri:'コンサル',baycurrent:'コンサル',fr:'小売',toyota:'自動車'};
 const BY_JOB = {
-  sales:['keyence','mc','itochu','mfud'],
-  plan:['mitsui','sony','mec','fr'],
-  eng:['tel','sony','nri','keyence'],
-  consult:['baycurrent','nri','mc','mitsui'],
+  sales:['keyence','mc','mfud','sony','nyk'],
+  plan:['mitsui','sony','mec','fr','keyence'],
+  eng:['tel','sony','toyota','mc','mfud'],
+  consult:['mc','keyence','mfud','tel'],
   admin:['mc','mfud','nyk','chugai'],
-  expert:['disco','tel','chugai','toyota'],
+  expert:['disco','chugai','toyota','keyence'],
   shop:['fr','keyence','mec','itochu']
 };
-const BY_IND = {it:'nri',maker:'sony',trade:'mitsui',fin:'mc',estate:'mfud',consult:'baycurrent',service:'fr',other:'nyk'};
+const BY_IND = {it:'sony',maker:'keyence',trade:'mitsui',fin:'mc',estate:'mfud',consult:'tel',service:'fr',other:'nyk'};
 
 // 職種ごとに、年収の高い会社で評価されやすい経験（一般的な傾向）
 const ROUTE = {
@@ -302,11 +307,14 @@ function compute(){
   const mid = val('pay');
   const p = val('exp') + val('win') + val('lead') + val('eng') + JOB_UP[val('job')];   // 0〜0.31
   const market = r10(mid * (1 + p * .5));                                               // 今の相場の目安
-  const high = Math.max(r10(mid * (1.15 + p)), market + 60);                              // 転職で狙える上限の目安
+  // 転職で狙える上限（最大）の目安。オーナー指示で「今より+300万円」以上を下限にする（支援実績に年収500万円UP事例あり）
+  const high = Math.max(r10(mid * (1.15 + p)), market + 60, mid + 300);
   const job = val('job');
-  const ids = [...BY_JOB[job]];
-  const extra = BY_IND[val('ind')];
-  if (!ids.includes(extra)) ids[3] = extra;
+  const ids = [CONSULT], used = new Set([GROUP[CONSULT]]);
+  for (const id of [BY_IND[val('ind')], ...BY_JOB[job]]) {
+    if (ids.length < 4 && !used.has(GROUP[id])) { ids.push(id); used.add(GROUP[id]); }
+  }
+  ids.sort((a, b) => CO[b].s - CO[a].s);
   return {mid, market, high, p, ids, job};
 }
 
@@ -335,7 +343,7 @@ function showResult(r){
   $('#result').innerHTML = `
   <div class="res-head fade"><div class="kicker">DIAGNOSIS REPORT</div><h2>あなたの市場価値 診断レポート</h2><div class="date">診断日 ${new Date().toLocaleDateString('ja-JP')}</div></div>
   <div class="hero-card fade">
-    <div class="lbl">転職で狙える年収（目安）</div>
+    <div class="lbl">転職で狙える年収（上振れした場合の目安）</div>
     <div class="num gold-text">最大 <span id="cnt">0</span><small>万円</small></div>
     <div class="up">今より +${up}万円</div>
     <div class="upside">
