@@ -144,6 +144,11 @@ header{display:flex;align-items:center;justify-content:space-between;padding:18p
 .benefits div{background:rgba(6,199,85,.07);border:1px solid rgba(6,199,85,.25);border-radius:12px;padding:11px 12px 11px 36px;font-size:11.5px;color:var(--sub);line-height:1.6;position:relative}
 .benefits div:before{content:"✓";position:absolute;left:13px;top:10px;color:#5fe39a;font-weight:900;font-size:14px}
 .benefits b{display:block;font-size:14px;color:var(--ink)}
+.gifts{margin:14px 0 2px;border:1px solid var(--gold);border-radius:12px;padding:12px 14px;background:rgba(201,164,92,.08)}
+.gifts-h{font-family:var(--serif);font-size:15px;font-weight:800;margin-bottom:6px}
+.gifts-h b{color:var(--gold2)}
+.gifts div:not(.gifts-h){font-size:12.5px;line-height:1.6;color:var(--ink);padding:3px 0 3px 22px;position:relative}
+.gifts span{position:absolute;left:0;color:var(--gold2);font-weight:900}
 .btn-line{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--green);color:#fff;font-weight:900;font-size:16px;padding:16px;border-radius:14px;text-decoration:none;box-shadow:0 8px 22px rgba(6,199,85,.22)}
 .btn-line.ghost{background:transparent;color:#5fe39a;border:1px solid var(--green);box-shadow:none}
 .btn-line .n{background:rgba(255,255,255,.25);width:22px;height:22px;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center}
@@ -182,7 +187,7 @@ footer a{color:var(--mute)}
     <div class="checks">
       <div>キーエンス・総合商社・総合コンサルなど、平均年収1000万円超の有名企業から「狙える会社」を表示</div>
       <div>人材業界8年目・キャリア相談1,000名以上の転職のプロが設計</div>
-      <div>結果は公式LINEに保存して、無料で個別アドバイスも受け取れます</div>
+      <div>公式LINE登録で「年収1000万円超 企業リスト114社」など<b style="color:var(--gold2)">3大特典</b>を無料プレゼント</div>
     </div>
     <button class="cta" id="go">無料で診断をはじめる</button>
     <p class="note">※結果は公開データと一般的な転職市場の傾向にもとづく目安です。転職後の年収や内定を保証するものではありません。</p>
@@ -388,8 +393,14 @@ function showResult(r){
       <div><b>あなたの経歴で狙える会社と、進め方を整理</b>上の4社に近づくために、何から始めるか</div>
       <div><b>LINEでも、オンライン面談でもOK</b>無料・30分。転職を決めていなくても大丈夫です</div>
     </div>
+    <div class="gifts">
+      <div class="gifts-h">友だち追加で <b>3大特典</b> を無料プレゼント</div>
+      <div><span>①</span>平均年収1,000万円超の企業リスト114社（業界別・有価証券報告書の実数）</div>
+      <div><span>②</span>自分の年収は高い？低い？相場 早見表（年齢別・業種別）</div>
+      <div><span>③</span>年収を上げる転職 チェックリスト18</div>
+    </div>
     <div class="steps">
-      <a class="btn-line ghost" href="${LINE_ADD}" target="_blank" rel="noopener"><span class="n">1</span>公式LINEを友だち追加</a>
+      <a class="btn-line ghost" href="${LINE_ADD}" target="_blank" rel="noopener"><span class="n">1</span>友だち追加して特典を受け取る</a>
       <a class="btn-line" href="${oa}" target="_blank" rel="noopener"><span class="n">2</span>「年収UPキャリア相談」と送る</a>
     </div>
     <p class="small">②を押すと、「年収UPキャリア相談」と診断結果が入力された状態でLINEが開きます。そのまま送信してください。</p>
